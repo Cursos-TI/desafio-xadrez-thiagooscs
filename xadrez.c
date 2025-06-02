@@ -1,73 +1,51 @@
-#include <stdio.h>
-
+#include <stdio.h> 
 // Definição de constantes para as movimentações das peças
+// (Mantidas dos desafios anteriores para contexto, mas não usadas diretamente aqui)
 #define MOVIMENTO_BISPO 5
 #define MOVIMENTO_TORRE 5
 #define MOVIMENTO_RAINHA 8
 
-/**
- * @brief Simula a movimentação do Bispo.
- * O Bispo se move 5 casas na diagonal superior direita.
- * A movimentação é simulada imprimindo "Cima" e "Direita" para cada casa.
- */
-void moverBispo() {
-    printf("--- Movimentacao do Bispo (Diagonal Superior Direita) ---\n");
-    // Utiliza um loop 'for' para simular as 5 casas
-    for (int i = 0; i < MOVIMENTO_BISPO; i++) {
-        printf("Cima\n");    // Representa o movimento para cima na diagonal
-        printf("Direita\n"); // Representa o movimento para a direita na diagonal
-        printf("Bispo moveu 1 casa na diagonal. Total: %d\n", i + 1);
-    }
-    printf("Bispo completou sua movimentacao de %d casas na diagonal.\n\n", MOVIMENTO_BISPO);
-}
+// Novas constantes para o movimento do Cavalo
+#define PASSOS_CAVALO_VERTICAL 2   // O Cavalo move 2 casas em uma direção principal (eixo Y)
+#define PASSOS_CAVALO_HORIZONTAL 1 // O Cavalo move 1 casa na direção perpendicular (eixo X)
 
 /**
- * @brief Simula a movimentação da Torre.
- * A Torre se move 5 casas para a direita.
- * A movimentação é simulada imprimindo "Direita" para cada casa.
+ * @brief Simula a movimentacao do Cavalo em "L".
+ * O Cavalo move-se "duas casas para baixo e uma casa para a esquerda".
+ * Utiliza loops aninhados (um 'for' e um 'while') conforme o requisito.
  */
-void moverTorre() {
-    printf("--- Movimentacao da Torre (Direita) ---\n");
-    int casasMovidas = 0;
-    // Utiliza um loop 'while' para simular as 5 casas
-    while (casasMovidas < MOVIMENTO_TORRE) {
-        printf("Direita\n");
-        casasMovidas++;
-        printf("Torre moveu 1 casa para a direita. Total: %d\n", casasMovidas);
-    }
-    printf("Torre completou sua movimentacao de %d casas para a direita.\n\n", MOVIMENTO_TORRE);
-}
+void moverCavalo() {
+    printf("--- Movimentacao do Cavalo (Padrao L: 2 para Baixo, 1 para Esquerda) ---\n");
 
-/**
- * @brief Simula a movimentação da Rainha.
- * A Rainha se move 8 casas para a esquerda.
- * A movimentação é simulada imprimindo "Esquerda" para cada casa.
- */
-void moverRainha() {
-    printf("--- Movimentacao da Rainha (Esquerda) ---\n");
-    int casasMovidas = 0;
-    // Utiliza um loop 'do-while' para simular as 8 casas
-    do {
-        printf("Esquerda\n");
-        casasMovidas++;
-        printf("Rainha moveu 1 casa para a esquerda. Total: %d\n", casasMovidas);
-    } while (casasMovidas < MOVIMENTO_RAINHA);
-    printf("Rainha completou sua movimentacao de %d casas para a esquerda.\n\n", MOVIMENTO_RAINHA);
+    // Loop externo: Responsável pelas 2 casas para baixo (movimento vertical)
+    // O 'i' representa cada uma das duas unidades de movimento vertical.
+    for (int i = 0; i < PASSOS_CAVALO_VERTICAL; i++) {
+        printf("  Cavalo moveu 1 casa para Baixo. (Passo vertical %d/%d)\n", i + 1, PASSOS_CAVALO_VERTICAL);
+
+        // Loop interno: Responsável pela 1 casa para a esquerda (movimento horizontal)
+        // Este loop aninhado executa o movimento horizontal após cada "passo" vertical,
+        // completando a forma de 'L'.
+        int j = 0; // Contador para o loop 'while'
+        while (j < PASSOS_CAVALO_HORIZONTAL) {
+            printf("    Cavalo moveu 1 casa para Esquerda. (Passo horizontal %d/%d)\n", j + 1, PASSOS_CAVALO_HORIZONTAL);
+            j++; // Incrementa o contador do loop interno
+        }
+    }
+    printf("Cavalo completou sua movimentacao em 'L'.\n\n");
 }
 
 /**
  * @brief Funcao principal do programa.
- * Inicia as simulacoes de movimentacao das pecas de xadrez.
+ * Orquestra as simulacoes de movimentacao das pecas de xadrez.
  */
 int main() {
     printf("Bem-vindo ao Desafio de Xadrez - MateCheck!\n");
-    printf("Simulando as movimentacoes das pecas para testes de desempenho e limites do codigo.\n\n");
+    printf("Nivel Aventureiro: Simulação da movimentacao do Cavalo em 'L'.\n\n");
 
-    moverBispo();   // Chama a funcao para simular a movimentacao do Bispo
-    moverTorre();   // Chama a funcao para simular a movimentacao da Torre
-    moverRainha();  // Chama a funcao para simular a movimentacao da Rainha
+    // Chama a funcao para simular a movimentacao do Cavalo
+    moverCavalo();
 
-    printf("Desafio concluido. Todas as movimentacoes foram simuladas.\n");
+    printf("Desafio do Nivel Aventureiro concluido.\n");
 
     return 0; // Indica que o programa foi executado com sucesso
 }
